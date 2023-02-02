@@ -5,24 +5,14 @@ using UnityEngine;
 public class IsGround : MonoBehaviour
 {
     [SerializeField]
-    LayerMask layer; //Hangi nesnenin üstündeyken zıplayayım?
+    LayerMask layer; 
     [SerializeField]
     bool isG = true;
     [SerializeField]
     Rigidbody2D rb;
     [SerializeField]
     float jumpSpeed = 8f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
     private void FixedUpdate()
     {
         if (PlayerController.isStartGame == false)
@@ -35,7 +25,7 @@ public class IsGround : MonoBehaviour
     }
     bool hit()
     {
-        RaycastHit2D isgrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, layer);//Raycast2D = Ayaktan yere ışın çizmeye yarar.
+        RaycastHit2D isgrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, layer);
         if (isgrounded.collider != null)//Bir şeye çarpıyorsa
         {
             isG = true;
