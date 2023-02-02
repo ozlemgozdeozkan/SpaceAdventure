@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] //Unity içinden ulaşılsın ama diğer sınıflardan ulaşılmasın.
-    Rigidbody2D rb; // bu kodu yazdıktan sonra unityde rigidbodye player atanması yapmak gerekir.
+    [SerializeField] 
+    Rigidbody2D rb; 
 
     [SerializeField]
     float speed = 2f;
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Animator anim;
 
-    public static int coinCount = 0;//public her yerden ulaşmaya static ise tek bir değişken olsun. Leveller değişsede coin her levelde devam edecek.
+    public static int coinCount = 0;
 
     [SerializeField]
     Text coinCountText;
@@ -38,17 +38,12 @@ public class PlayerController : MonoBehaviour
     {
         if (RestartGame.isRestart == true)
         {
-            playGamePanel.SetActive(false);//restarttan sonra play paneli gelmemesi için play panelini kapatırız.
+            playGamePanel.SetActive(false);
         }
         coinCountText.text = coinCount.ToString();
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void FixedUpdate()
     {
         if (isStartGame == false)
@@ -105,20 +100,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("horizontal", isRun);
     }
-    /*Çarpışmalar
-    -Eğer iki cisim çarpışsın içinden geçme olayı olmasın (Düşman ile çarpışmak)
-    Çarptığını algılamak istiyorsan : private void OnCollisionEnter2D(Collision2D collision)
-    collision/other çarptığın nesnedir. 
-    -Eğer çarptıktan sonra çıkana kadar ki süre içinde olan çarpışmalar
-    private void OnCollisionStay2D(Collision2D collision)
-    -Eğer o nesne ile bağlantısı koptuğu an çalışsın istiyorsan
-    private void OnCollisionExit2D(Collision2D collision)
-    -Eğer bir nesnenin hem içinden geçip hemde çarpışmayı algılamak istiyorsak colliderda trigger aktif olmalıdır.
-    Eğer is trigger açık ise;
-    OnTriggerEnter2D=> çarpışıldığı an 
-    OnTriggerStay2D=> çarpışma sürdüğü an
-    OnTriggerExit2D=> çarpışma bittiği an
-    */
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "coin")
@@ -126,7 +108,7 @@ public class PlayerController : MonoBehaviour
             coinCount++;
             sound.Play();
             coinCountText.text = coinCount.ToString();
-            Destroy(other.gameObject);//Yok etme metodudur.İçerisine gameobj alır. other bir collider'ken onu game objecte çeviririz.
+            Destroy(other.gameObject);
         }
         else if (other.tag == "enemy")
         {
@@ -139,7 +121,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag == "box")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//bir sonraki levele geçmek
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else if (other.tag == "star")
         {
@@ -152,11 +134,11 @@ public class PlayerController : MonoBehaviour
     }
     void death()
     {
-        restartGamePanel.SetActive(true);//Paneli aktif etmek
+        restartGamePanel.SetActive(true);
         lastCoinCountText.text = coinCount.ToString();
         Destroy(this.gameObject);
     }
 
 
 }
-//canvasta rect transformda image yerini alt+shift beraber basılı tutarak en sol üst seçilir. Bu cihazlarda değişiklik göstermemesini sağlar. Ek: ctrl+D tutuğunuz şeyi kopyalar.
+
